@@ -16,20 +16,12 @@ public class ExplosiveMiningEvent implements Listener
 		if(!event.getPlayer().hasPermission("EM.false"))
 		{
 			Random rand = new Random();
-			if(event.getBlock().getTypeId() == 1)
-			{
-				if(rand.nextFloat() < .01F)
+			if(ExplosiveMining.config.getInt(event.getBlock().getTypeId() + "",-100) != -100)
+			{	
+				if(rand.nextInt(101) <= ExplosiveMining.config.getInt(event.getBlock().getTypeId() + ""))
 				{
 					event.getPlayer().getWorld().createExplosion(event.getPlayer().getLocation(), 0);
-					event.getPlayer().damage(6);
-				}
-			}
-			else if(event.getBlock().getTypeId() == 16)
-			{
-				if(rand.nextFloat() < .03F)
-				{
-					event.getPlayer().getWorld().createExplosion(event.getPlayer().getLocation(), 0);
-					event.getPlayer().damage(6);
+					event.getPlayer().damage(ExplosiveMining.config.getInt("damage"));
 				}
 			}
 		}
